@@ -28,6 +28,8 @@ defmodule Ranges.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:timex, "~> 3.4"},
+
       # For New Versions:
       {:ecto_sql, "3.0.0"},
       {:postgrex, "0.14.0"}

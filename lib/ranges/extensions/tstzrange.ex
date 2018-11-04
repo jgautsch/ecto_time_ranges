@@ -4,9 +4,6 @@ defmodule Postgrex.Extension.TSTZRange do
   def type, do: :tstzrange
 
   def cast({lower, upper}) do
-    require IEx
-    IEx.pry()
-
     case apply_func({lower, upper}, &Ecto.Type.cast(:utc_datetime, &1)) do
       {:ok, {lower, upper}} ->
         {:ok, {lower, upper}}
@@ -24,14 +21,16 @@ defmodule Postgrex.Extension.TSTZRange do
 
   def load(_), do: :error
 
-  def dump({lower, upper}) do
-    case apply_func({lower, upper}, &Ecto.Type.dump(:utc_datetime, &1)) do
-      {:ok, {lower, upper}} ->
-        {:ok, %Postgrex.Range{lower: lower, upper: upper, upper_inclusive: false}}
+  def dump({%DateTime{} = lower, %DateTime{} = upper}) do
+    {:ok, %Postgrex.Range{lower: lower, upper: upper, upper_inclusive: false}}
+  end
 
-      :error ->
-        :error
-    end
+  def dump({%NaiveDateTime{} = lower, upper}) do
+    dump({DateTime.from_naive!(lower), upper})
+  end
+
+  def dump({lower, %NaiveDateTime{} = upper}) do
+    dump({lower, DateTime.from_naive!(upper)})
   end
 
   def dump(_), do: :error
