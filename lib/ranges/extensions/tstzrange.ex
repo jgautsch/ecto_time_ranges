@@ -26,11 +26,11 @@ defmodule Postgrex.Extension.TSTZRange do
   end
 
   def dump({%NaiveDateTime{} = lower, upper}) do
-    dump({DateTime.from_naive!(lower), upper})
+    dump({DateTime.from_naive!(lower, "Etc/UTC"), upper})
   end
 
   def dump({lower, %NaiveDateTime{} = upper}) do
-    dump({lower, DateTime.from_naive!(upper)})
+    dump({lower, DateTime.from_naive!(upper, "Etc/UTC")})
   end
 
   def dump(_), do: :error
