@@ -29,19 +29,8 @@ defmodule Ranges.MixProject do
   defp deps do
     [
       {:timex, "~> 3.4"},
-
-      # For New Versions:
       {:ecto_sql, "3.0.0"},
       {:postgrex, "0.14.0"}
-
-      # For Old Versions:
-      # {:ecto, "2.2.11"},
-      # {:postgrex, "0.13.5"}
-
-      # For New Versions (local paths):
-      # {:ecto_sql, "3.0.0", path: "~/Downloads/ecto_sql-3.0.0/", override: true},
-      # {:ecto, "3.0.1", path: "~/Downloads/ecto-3.0.1/", override: true},
-      # {:postgrex, "0.14.0", path: "~/Downloads/postgrex-0.14.0/", override: true}
     ]
   end
 
